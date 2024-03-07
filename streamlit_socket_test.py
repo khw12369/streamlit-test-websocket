@@ -8,6 +8,10 @@ from collections import deque
 import ccxt
 from binance import AsyncClient, BinanceSocketManager
 import logging
+import os
+
+api_key = os.getenv("API_KEY")
+api_secret = os.getenv("API_SECRET")
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -131,8 +135,8 @@ def calculate_moving_average(prices, moving_average_period):
 
 def api_load():
     return ccxt.binance(config={
-        'apiKey': "HgoM8YxJ5DZwJXaVRZ87JEEeGpmWDSAXGSzxGeCsM25tqbi6xPHDTT2fMXQFt9bR",
-        'secret': "8t03t3Fa1GQZCD2f99r3HEE9GYVeXNhS4FyjZpCVPTbGofmoPYATilUCoXWJKixf",
+        'apiKey': api_key,
+        'secret': api_secret,
         'enableRateLimit': True,
         'options': {
             'defaultType': 'future',
@@ -236,8 +240,8 @@ def find_two_smallest(numbers, period):
 
 ########################################################################################################################
 
-api_key = "HgoM8YxJ5DZwJXaVRZ87JEEeGpmWDSAXGSzxGeCsM25tqbi6xPHDTT2fMXQFt9bR"
-api_secret = '8t03t3Fa1GQZCD2f99r3HEE9GYVeXNhS4FyjZpCVPTbGofmoPYATilUCoXWJKixf'
+api_key = api_key
+api_secret = api_secret
 
 binance_futures = api_load()
 tickers = list(binance_futures.fetch_tickers().keys())
